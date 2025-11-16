@@ -1,0 +1,18 @@
+<mvc:View controllerName="com.eros.storereports.controller.MainView"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}" showHeader="false">
+        <content>
+           <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Daily Payment Report" press="fnPressDailyPaymentReport" >
+               <TileContent>
+                    <ImageContent src="sap-icon://manager-insight" />
+                </TileContent>
+            </GenericTile>
+           
+              <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Category wise Sales Report" press="fnPressCategorySalesReport" >
+                <TileContent>
+                    <ImageContent src="sap-icon://manager-insight" />
+                </TileContent>
+            </GenericTile> </content>
+    </Page>
+</mvc:View>

@@ -1,0 +1,84 @@
+<mvc:View controllerName="com.eros.storereports.controller.CategoryReport"
+    	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core" displayBlock="true"
+	xmlns="sap.m"
+	xmlns:tnt="sap.tnt"
+	xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.table"
+   >
+    <Page id="page" title="{i18n>title}" showHeader="false" class="noPaddingPage page" >
+        <content >
+        <VBox >
+				<Panel width="auto" id="id_FitlerPanel" expandable="true" expanded="true"  class="sapUiTinyMarginBegin sapUiTinyMarginEnd">
+					<headerToolbar>
+                    <OverflowToolbar>
+				<Title text="Filters"/>
+				<ToolbarSpacer />
+				
+			</OverflowToolbar>
+						
+					</headerToolbar>
+					<content>
+						<l:Grid defaultSpan="XL2 L2 M3 S12" class="sapUiSizeCompact sapUiSmallMarginTop">
+							
+							<VBox >
+								<Label text="Transaction Date:" ></Label>
+							    <DateRangeSelection id="trandate" placeholder="Enter Transaction Date" class= "customInputHeight inputStyle"/>
+							</VBox>
+
+							
+							<VBox >
+								<Label text="Store:" ></Label>
+							    <Input id="store" placeholder="Enter Store" class="customInputHeight inputStyle"/>
+							
+							</VBox>
+
+							
+
+							
+
+						
+
+						</l:Grid>
+					</content>
+				</Panel>
+                 <HBox width="100%">
+                <VBox alignItems="Stretch" width="100%" class="customScrollContainer" height="650px">
+                   
+			             <VBox id="printBox" visible="false" class="sapUiSmallMarginEnd sapUiSmallMarginBottom sapUiMediumMarginBegin sapUiSmallMarginTop customerDialog" width="60%" height="480px" >
+     
+                      <core:HTML id="pdfCanvas" visible="false"/>
+                 	</VBox>
+                    
+                   
+                </VBox>
+                <VBox>
+                    <l:VerticalLayout class="sapUiContentPadding equalColumns" width="100%">
+                     <GenericTile id="search" frameType="OneByHalf" press="fnSearch" header="SEARCH" class="customTile" headerImage="sap-icon://search">
+                            <TileContent>
+                                
+                            </TileContent>
+                        </GenericTile>
+                         <GenericTile id="clear" frameType="OneByHalf" press="fnClearSearch" header="CLEAR" class="customTile" headerImage="sap-icon://clear-all">
+                            <TileContent>
+                                
+                            </TileContent>
+                        </GenericTile>
+                        <GenericTile id="print" frameType="OneByHalf" press="onPrint" header="PRINT" class="customTile" headerImage="sap-icon://print">
+                            <TileContent>
+                                
+                            </TileContent>
+                        </GenericTile>
+
+
+
+                    
+                      
+                    </l:VerticalLayout>
+                </VBox>
+            </HBox>
+			
+			</VBox>
+     </content>
+    </Page>
+</mvc:View>
