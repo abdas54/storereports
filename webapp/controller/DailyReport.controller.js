@@ -14,7 +14,34 @@ sap.ui.define([
             onInit: function () {
                 this.oModel = this.getOwnerComponent().getModel();
                 that = this;
+                this.validateLoggedInUser();
 
+            },
+            validateLoggedInUser: function () {
+                var that = this;
+                that.printerIP = [];
+                this.oModel.read("/StoreIDSet", {
+                    success: function (oData) {
+                        that.storeID = oData.results[0] ? oData.results[0].Store : "";
+                        that.plantID = oData.results[0] ? oData.results[0].Plant : "";
+                        that.printerIP.push(oData.results[0] ? oData.results[0].PrinterIp1 ? oData.results[0].PrinterIp1 : "" : "");
+                        that.printerIP.push(oData.results[0] ? oData.results[0].PrinterIp2 ? oData.results[0].PrinterIp2 : "" : "");
+                        that.printerIP.push(oData.results[0] ? oData.results[0].PrinterIp3 ? oData.results[0].PrinterIp3 : "" : "");
+                        
+                    },
+                    error: function (oError) {
+                        sap.m.MessageBox.show(JSON.parse(oError.responseText).error.message.value, {
+                            icon: sap.m.MessageBox.Icon.Error,
+                            title: "Error",
+                            actions: [MessageBox.Action.OK],
+                            onClose: function (oAction) {
+                                if (oAction === MessageBox.Action.OK) {
+                                    window.history.go(-1);
+                                }
+                            }
+                        });
+                    }
+                });
             },
             fnClearSearch: function () {
 
@@ -103,7 +130,54 @@ sap.ui.define([
 
 
             onPrint: function () {
+               
+                var that = this;
+                var aValidIPs = [].concat(that.printerIP || []).filter(ip => ip && ip.trim() !== "");
+
+                if (aValidIPs.length === 0) {
+                    sap.m.MessageToast.show("No valid printer IPs found.");
+                    return;
+                }
+
+                var oIPModel = new sap.ui.model.json.JSONModel({
+                    IPs: aValidIPs.map(function (ip) {
+                        return { IP: ip };
+                    })
+                });
+               
+                this.printerIp = aValidIPs[0];
                 this.sendToEpsonPrinter(this.canvas, this.printerIp);
+               
+
+                // if (!this._oPrintDialog) {
+                //     Fragment.load({
+                //         name: "com.eros.storereports.fragment.printDialog",
+                //         controller: this
+                //     }).then(function (oDialog) {
+                //         that._oPrintDialog = oDialog;
+                //         that.getView().addDependent(oDialog);
+                //         that._oPrintDialog.setModel(oIPModel, "IPModel");
+                //         oDialog.open();
+                //     });
+                // } else {
+                //     that._oPrintDialog.setModel(oIPModel, "IPModel");
+                //     that._oPrintDialog.open();
+                // }
+            },
+            onCancelPrint: function () {
+               // that._oPrintDialog.close();
+            },
+             onPressIP: function (oEvent) {
+                var that = this;
+                var oItem = oEvent.getParameter("listItem") || oEvent.getSource();
+                var oVBox = oItem.getContent ? oItem.getContent()[0] : oItem.getAggregation("content")[0];
+                var aItems = oVBox.getItems ? oVBox.getItems() : oVBox.getAggregation("items");
+                this.printIP = aItems[0]?.getText();
+                this._oPrintDialog.close();
+                this.sendToEpsonPrinter(this.canvas, this.printIP)
+                
+
+
             },
 
             onShowPDFSEPP: async function (base64Content) {

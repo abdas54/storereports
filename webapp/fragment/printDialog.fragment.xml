@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"    xmlns:form="sap.ui.layout.form"
+    xmlns:f="sap.f.cards" xmlns:g="sap.f">
+ <Dialog id="printDialog" title="Select IP Address" class="sapUiContentPadding customerDialog" contentHeight="500px" contentWidth="500px">
+         <HBox>
+       
+    <VBox id="ipBox" visible="true" class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom sapUiSmallMarginTop customerDialog">
+      
+      <g:GridList items="{IPModel>/IPs}" noDataText="No IP's Found" itemPress="onPressIP" class="roundedList">
+            <g:items>
+                <g:GridListItem type="Active">
+                    <VBox class="sapUiSmallMargin">
+                            <layoutData>
+                            <FlexItemData growFactor="1" shrinkFactor="0" />                         
+                            </layoutData>
+                            <Text text="{IPModel>IP}" />
+                            <Text text="{ShowPaymentSection>Mid}" visible="false"/>
+                    </VBox>
+                </g:GridListItem>
+            </g:items>
+        </g:GridList>                      
+    </VBox>
+  
+     </HBox>
+        
+        <endButton>
+            <Button text="Cancel" press="onCancelPrint" class="cstmBtn"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
