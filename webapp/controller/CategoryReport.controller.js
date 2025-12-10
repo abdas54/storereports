@@ -228,7 +228,7 @@ sap.ui.define([
                 });
 
                 this.printerIp = aValidIPs[0];
-                this.sendToEpsonPrinter(this.canvas, this.printerIp);
+                this.sendToEpsonPrinter(this.canvasp, this.printerIp);
                 // if (!this._oPrintDialog) {
                 //     Fragment.load({
                 //         name: "com.eros.storereports.fragment.printDialog",
@@ -254,7 +254,7 @@ sap.ui.define([
                 var aItems = oVBox.getItems ? oVBox.getItems() : oVBox.getAggregation("items");
                 this.printIP = aItems[0]?.getText();
                 this._oPrintDialog.close();
-                this.sendToEpsonPrinter(this.canvas, this.printIP)
+                this.sendToEpsonPrinter(this.canvasp, this.printIP)
                 
 
 
@@ -293,14 +293,14 @@ sap.ui.define([
 
                 // 👇 Append random query to ensure browser does NOT cache
                 const pdfUrl = URL.createObjectURL(blob) + `#t=${Date.now()}`;
-                var printerIp = "192.168.10.75";
+                //var printerIp = "192.168.10.75";
                 // 🔹 Step 5: Wait until control renders, then load PDF
                 try {
                     const canvas = await this.loadPdfToCanvas(pdfUrl, uniqueId);
                     this.canvasp = canvas;
-                    this.printerIP = printerIp;
+                   // this.printerIP = printerIp;
                     console.log(" PDF loaded successfully:", uniqueId);
-                    this.sendToEpsonPrinter(canvas, printerIp);
+                    //this.sendToEpsonPrinter(canvas, printerIp);
                 } catch (err) {
                     console.error("Error rendering PDF:", err);
                     sap.m.MessageBox.error("Error rendering PDF: " + err.message);
@@ -369,12 +369,12 @@ sap.ui.define([
 
                 var pdfUrl = URL.createObjectURL(blob);
 
-                var printerIp = "192.168.10.75"; // your Epson printer IP
+               // var printerIp = "192.168.10.75"; // your Epson printer IP
 
                 try {
                     const canvas = await this.loadPdfToCanvas(pdfUrl);
                     this.canvasp = canvas;
-                    this.printerIP = printerIp;
+                    //this.printerIP = printerIp;
 
 
                 } catch (err) {

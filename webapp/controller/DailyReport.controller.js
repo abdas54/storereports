@@ -146,7 +146,7 @@ sap.ui.define([
                 });
                
                 this.printerIp = aValidIPs[0];
-                this.sendToEpsonPrinter(this.canvas, this.printerIp);
+                this.sendToEpsonPrinter(this.canvasp, this.printerIp);
                
 
                 // if (!this._oPrintDialog) {
@@ -174,7 +174,7 @@ sap.ui.define([
                 var aItems = oVBox.getItems ? oVBox.getItems() : oVBox.getAggregation("items");
                 this.printIP = aItems[0]?.getText();
                 this._oPrintDialog.close();
-                this.sendToEpsonPrinter(this.canvas, this.printIP)
+                this.sendToEpsonPrinter(this.canvasp, this.printIP)
                 
 
 
@@ -207,12 +207,12 @@ sap.ui.define([
 
                 var pdfUrl = URL.createObjectURL(blob);
 
-                var printerIp = "192.168.10.75"; // your Epson printer IP
+                //var printerIp = "192.168.10.75"; // your Epson printer IP
 
                 try {
                     const canvas = await this.loadPdfToCanvas(pdfUrl);
                     this.canvasp = canvas;
-                    this.printerIP = printerIp;
+                    //this.printerIP = printerIp;
 
 
                 } catch (err) {
