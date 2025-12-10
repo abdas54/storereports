@@ -27,7 +27,7 @@ sap.ui.define([
                         that.printerIP.push(oData.results[0] ? oData.results[0].PrinterIp1 ? oData.results[0].PrinterIp1 : "" : "");
                         that.printerIP.push(oData.results[0] ? oData.results[0].PrinterIp2 ? oData.results[0].PrinterIp2 : "" : "");
                         that.printerIP.push(oData.results[0] ? oData.results[0].PrinterIp3 ? oData.results[0].PrinterIp3 : "" : "");
-                        
+
                     },
                     error: function (oError) {
                         sap.m.MessageBox.show(JSON.parse(oError.responseText).error.message.value, {
@@ -245,9 +245,9 @@ sap.ui.define([
                 // }
             },
             onCancelPrint: function () {
-               // that._oPrintDialog.close();
+                // that._oPrintDialog.close();
             },
-             onPressIP: function (oEvent) {
+            onPressIP: function (oEvent) {
                 var that = this;
                 var oItem = oEvent.getParameter("listItem") || oEvent.getSource();
                 var oVBox = oItem.getContent ? oItem.getContent()[0] : oItem.getAggregation("content")[0];
@@ -255,7 +255,7 @@ sap.ui.define([
                 this.printIP = aItems[0]?.getText();
                 this._oPrintDialog.close();
                 this.sendToEpsonPrinter(this.canvasp, this.printIP)
-                
+
 
 
             },
@@ -298,7 +298,7 @@ sap.ui.define([
                 try {
                     const canvas = await this.loadPdfToCanvas(pdfUrl, uniqueId);
                     this.canvasp = canvas;
-                   // this.printerIP = printerIp;
+                    // this.printerIP = printerIp;
                     console.log(" PDF loaded successfully:", uniqueId);
                     //this.sendToEpsonPrinter(canvas, printerIp);
                 } catch (err) {
@@ -350,6 +350,12 @@ sap.ui.define([
                 oHtmlControl.setContent(iframeContent);
                 oHtmlControl.invalidate(); // force re-render
                 sap.ui.getCore().applyChanges(); // immediately render changes
+                if (document.getElementById("pdf-viewport")) {
+
+                    document.getElementById("pdf-viewport").innerHTML = "";
+
+
+                }
                 oHtmlControl.setVisible(true);
 
                 var byteCharacters = atob(base64Content);
@@ -369,7 +375,7 @@ sap.ui.define([
 
                 var pdfUrl = URL.createObjectURL(blob);
 
-               // var printerIp = "192.168.10.75"; // your Epson printer IP
+                // var printerIp = "192.168.10.75"; // your Epson printer IP
 
                 try {
                     const canvas = await this.loadPdfToCanvas(pdfUrl);
