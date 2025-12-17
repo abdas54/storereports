@@ -15,6 +15,7 @@ sap.ui.define([
                 this.oModel = this.getOwnerComponent().getModel();
                 that = this;
                 this.validateLoggedInUser();
+                //dummy
 
             },
             validateLoggedInUser: function () {
@@ -27,6 +28,7 @@ sap.ui.define([
                         that.printerIP.push(oData.results[0] ? oData.results[0].PrinterIp1 ? oData.results[0].PrinterIp1 : "" : "");
                         that.printerIP.push(oData.results[0] ? oData.results[0].PrinterIp2 ? oData.results[0].PrinterIp2 : "" : "");
                         that.printerIP.push(oData.results[0] ? oData.results[0].PrinterIp3 ? oData.results[0].PrinterIp3 : "" : "");
+                        that.getView().byId("store").setValue(that.storeID);
 
                     },
                     error: function (oError) {

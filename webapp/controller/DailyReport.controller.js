@@ -15,6 +15,7 @@ sap.ui.define([
                 this.oModel = this.getOwnerComponent().getModel();
                 that = this;
                 this.validateLoggedInUser();
+                // dummy
 
             },
             validateLoggedInUser: function () {
@@ -27,6 +28,7 @@ sap.ui.define([
                         that.printerIP.push(oData.results[0] ? oData.results[0].PrinterIp1 ? oData.results[0].PrinterIp1 : "" : "");
                         that.printerIP.push(oData.results[0] ? oData.results[0].PrinterIp2 ? oData.results[0].PrinterIp2 : "" : "");
                         that.printerIP.push(oData.results[0] ? oData.results[0].PrinterIp3 ? oData.results[0].PrinterIp3 : "" : "");
+                        that.getView().byId("store1").setValue(that.storeID);
 
                     },
                     error: function (oError) {
@@ -49,9 +51,9 @@ sap.ui.define([
 
 
                 this.getView().byId("trandate").setDateValue(null);
-                this.getView().byId("store").setValue("");
-                if (document.getElementById("pdf-viewport")) {
-                    document.getElementById("pdf-viewport").innerHTML = "";
+                this.getView().byId("store1").setValue("");
+                if (document.getElementById("pdf-viewport1")) {
+                    document.getElementById("pdf-viewport1").innerHTML = "";
                 }
 
 
@@ -63,7 +65,7 @@ sap.ui.define([
                 var oDateRange = this.byId("trandate");
                 var oFromDate = oDateRange.getDateValue();     // First Date
                 oFromDate = oFromDate ? this.resolveTimeDifference(oFromDate) : null;
-                var sStore = this.byId("store").getValue();
+                var sStore = this.byId("store1").getValue();
 
 
                 // If all filters are empty → show message
@@ -184,13 +186,13 @@ sap.ui.define([
                 var oPrintBox = this.getView().byId("printBox");
                 oPrintBox.setVisible(true);
                 var oHtmlControl = this.getView().byId("pdfCanvas");
-                var iframeContent = '<div id="pdf-viewport"></div>';
+                var iframeContent = '<div id="pdf-viewport1"></div>';
                 oHtmlControl.setContent(iframeContent);
                 oHtmlControl.invalidate(); // force re-render
                 sap.ui.getCore().applyChanges(); // immediately render changes
-                if (document.getElementById("pdf-viewport")) {
+                if (document.getElementById("pdf-viewport1")) {
 
-                    document.getElementById("pdf-viewport").innerHTML = "";
+                    document.getElementById("pdf-viewport1").innerHTML = "";
 
 
                 }
@@ -250,7 +252,7 @@ sap.ui.define([
                         const page = await pdfDoc.getPage(pageNum);
                         const scale = printerWidth / page.getViewport({ scale: 1 }).width;
                         const viewport = page.getViewport({ scale });
-                        const pdfContainer = document.getElementById("pdf-viewport");
+                        const pdfContainer = document.getElementById("pdf-viewport1");
                         const canvas = document.createElement("canvas");
                         // pdfContainer.appendChild(canvas);
                         const width = viewport.width;
