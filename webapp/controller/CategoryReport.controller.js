@@ -47,7 +47,7 @@ sap.ui.define([
             },
             fnClearSearch: function () {
                 this.byId("trandate").setValue("");
-                this.getView().byId("store").setValue("");
+                //this.getView().byId("store").setValue("");
                 if (document.getElementById("pdf-viewport")) {
                     document.getElementById("pdf-viewport").innerHTML = "";
                 }
@@ -557,7 +557,14 @@ sap.ui.define([
                                     printer.addCut(printer.CUT_FEED);
                                     printer.send();
 
-                                    window.location.reload(true);
+                                    //window.location.reload(true);
+                                    var oCrossAppNav = sap.ushell.Container.getService("CrossApplicationNavigation");
+                                            oCrossAppNav.toExternal({
+                                                target: {
+                                                    semanticObject: "Shell",
+                                                    action: "home"
+                                                }
+                                            });
 
                                     // printer.send(function (resultSend) {
                                     //     if (resultSend === "OK") {

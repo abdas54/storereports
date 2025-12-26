@@ -20,4 +20,4 @@ builder:
           name: zstorereports
           description: eros store reports
           package: ZRETAIL
-          transport:  ERDK920149
+          transport:  ERDK920352
